@@ -4,3 +4,9 @@ export interface IMovie {
   id: string;
   category: string;
 }
+
+export interface IMoviesState {
+  movies: IMovie[];
+  categories: String[];
+  selected: IMovie[];
+}

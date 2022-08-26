@@ -2,7 +2,7 @@ import { IMovie } from "./../interfaces/movies";
 
 export const getCategories = (movies: IMovie[]) => {
   const categories = movies.map((movie) => movie.category);
-  return [new Set(...categories)];
+  return [...new Set(categories)];
 };
 export const filterByCategory = (movies: IMovie[], category: string) => {
   return movies.filter((movie) => movie.category === category);
