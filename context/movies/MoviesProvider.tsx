@@ -46,8 +46,14 @@ export const MoviesProvider: FC = ({ children }) => {
   };
   const deleteNominatedMovie = (nominatedMovie: IMovie) => {
     dispatch({
-      type: "[Movie] Delete-selected",
+      type: "[Movie] Delete-selected-movie",
       payload: nominatedMovie,
+    });
+  };
+  const deleteMoviesVoted = () => {
+    dispatch({
+      type: "[Movie] Delete-all-selected",
+      payload: [],
     });
   };
 
@@ -63,6 +69,7 @@ export const MoviesProvider: FC = ({ children }) => {
         addNominatedMovies,
         hasVotedCategory,
         deleteNominatedMovie,
+        deleteMoviesVoted,
       }}
     >
       {children}

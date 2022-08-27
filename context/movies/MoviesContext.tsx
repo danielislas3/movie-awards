@@ -8,6 +8,7 @@ interface ContextProps {
   addNominatedMovies: (movie: IMovie) => void;
   hasVotedCategory: (movie: IMovie) => boolean;
   deleteNominatedMovie: (movie: IMovie) => void;
+  deleteMoviesVoted: () => void;
 }
 
 export const MoviesContext = createContext({} as ContextProps);
