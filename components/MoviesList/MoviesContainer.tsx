@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MoviesContext } from "../../context/movies/MoviesContext";
 import { IMovie } from "../../interfaces/movies";
-import CategoriesContainer from "./MoviesContainer/CategoriesContainer";
+import CategoryContainer from "./MoviesContainer/CategoriyContainer";
 import { v1 as uuidv1 } from "uuid";
 
 export const MoviesContainer = () => {
@@ -12,14 +12,13 @@ export const MoviesContainer = () => {
     const ordered = categories.map((category) =>
       movies.filter((movie) => movie.category === category)
     );
-
     setOrderedMovies(ordered);
   }, [movies]);
 
   return (
     <div>
       {orderedMovies?.map((category) => (
-        <CategoriesContainer key={uuidv1()} movies={category} />
+        <CategoryContainer key={uuidv1()} movies={category} />
       ))}
     </div>
   );

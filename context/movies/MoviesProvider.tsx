@@ -8,7 +8,7 @@ import { IMovie, IMoviesState } from "../../interfaces/movies";
 const INITIAL_STATE: IMoviesState = {
   movies: [],
   categories: [],
-  selected: [],
+  selectedMovies: [],
 };
 
 export const MoviesProvider: FC = ({ children }) => {
@@ -23,8 +23,32 @@ export const MoviesProvider: FC = ({ children }) => {
       payload: movies,
     });
 
-    dispatch({ type: "[Movie] Add-Movies", payload: movies });
+    dispatch({
+      type: "[Movie] Add-Movies",
+      payload: movies,
+    });
     return movies;
+  };
+
+  const addNominatedMovies = (nominatedMovie: IMovie) => {
+    if (!hasVotedCategory(nominatedMovie)) {
+      dispatch({
+        type: "[Movie] Add-selected",
+        payload: nominatedMovie,
+      });
+    }
+  };
+
+  const hasVotedCategory = (nominatedMovie: IMovie) => {
+    return state.selectedMovies.some(
+      (movie) => movie?.category == nominatedMovie.category
+    );
+  };
+  const deleteNominatedMovie = (nominatedMovie: IMovie) => {
+    dispatch({
+      type: "[Movie] Delete-selected",
+      payload: nominatedMovie,
+    });
   };
 
   useEffect(() => {
@@ -35,6 +59,10 @@ export const MoviesProvider: FC = ({ children }) => {
     <MoviesContext.Provider
       value={{
         ...state,
+        // Methods
+        addNominatedMovies,
+        hasVotedCategory,
+        deleteNominatedMovie,
       }}
     >
       {children}

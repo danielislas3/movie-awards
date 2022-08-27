@@ -4,7 +4,8 @@ import { orderAz, getCategories } from "../../services/filters";
 type MoviesActionType =
   | { type: "[Movie] Add-Categories"; payload: IMovie[] }
   | { type: "[Movie] Add-Movies"; payload: IMovie[] }
-  | { type: "[Movie] Add-selected"; payload };
+  | { type: "[Movie] Add-selected"; payload: IMovie }
+  | { type: "[Movie] Delete-selected"; payload: IMovie };
 
 export const moviesReducer = (
   state: IMoviesState,
@@ -26,7 +27,15 @@ export const moviesReducer = (
     case "[Movie] Add-selected":
       return {
         ...state,
-        selected: { ...action.payload },
+        selectedMovies: [...state.selectedMovies, action.payload],
+      };
+    case "[Movie] Delete-selected":
+      const newSelected = [...state.selectedMovies].filter(
+        (movie) => movie.id !== action.payload.id
+      );
+      return {
+        ...state,
+        selectedMovies: [...newSelected],
       };
 
     default:

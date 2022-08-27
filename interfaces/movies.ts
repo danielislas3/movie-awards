@@ -7,6 +7,6 @@ export interface IMovie {
 
 export interface IMoviesState {
   movies: IMovie[];
-  categories: String[];
-  selected: IMovie[];
+  categories: string[];
+  selectedMovies: IMovie[];
 }
