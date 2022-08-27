@@ -7,7 +7,14 @@ import { MoviesContext } from "../../context/movies";
 
 const SearchInput = ({ movies }) => {
   const [value, setValue] = useState<any>(" ");
-  // const { } = useContext(MoviesContext);
+  const [searchMovieValue, setSearchMovieValue] = useState<any>("");
+
+  const { searchMovie } = useContext(MoviesContext);
+  useEffect(() => {
+    searchMovie(value);
+
+    // searchingMovie(value);
+  }, [value]);
 
   return (
     <Stack spacing={2}>
@@ -15,6 +22,7 @@ const SearchInput = ({ movies }) => {
         value={value}
         onChange={(event: any, newValue: string | null) => {
           setValue(newValue);
+          setSearchMovieValue(newValue);
         }}
         freeSolo
         id="free-solo-2-demo"
@@ -22,6 +30,10 @@ const SearchInput = ({ movies }) => {
         options={movies.map((option: IMovie) => option.title)}
         renderInput={(params) => (
           <TextField
+            onChange={(e) => {
+              setSearchMovieValue(e.target.value);
+              searchMovie(e.target.value);
+            }}
             {...params}
             label="Search a movie title"
             InputProps={{

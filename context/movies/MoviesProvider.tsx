@@ -4,11 +4,13 @@ import { movieService } from "../../services/movieServices";
 
 import { MoviesContext, moviesReducer } from "./";
 import { IMovie, IMoviesState } from "../../interfaces/movies";
+import { filterByCategory } from "../../services/filters";
 
 const INITIAL_STATE: IMoviesState = {
   movies: [],
   categories: [],
   selectedMovies: [],
+  searchingMovie: "",
 };
 
 export const MoviesProvider: FC = ({ children }) => {
@@ -27,6 +29,7 @@ export const MoviesProvider: FC = ({ children }) => {
       type: "[Movie] Add-Movies",
       payload: movies,
     });
+
     return movies;
   };
 
@@ -56,7 +59,12 @@ export const MoviesProvider: FC = ({ children }) => {
       payload: [],
     });
   };
-
+  const searchMovie = (movie) => {
+    dispatch({
+      type: "[Movie] Add-Search-Movie",
+      payload: movie,
+    });
+  };
   useEffect(() => {
     setUpMovies();
   }, []);
@@ -70,6 +78,7 @@ export const MoviesProvider: FC = ({ children }) => {
         hasVotedCategory,
         deleteNominatedMovie,
         deleteMoviesVoted,
+        searchMovie,
       }}
     >
       {children}

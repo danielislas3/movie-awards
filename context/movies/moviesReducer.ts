@@ -1,12 +1,17 @@
 import { IMoviesState, IMovie } from "../../interfaces/movies";
-import { orderAz, getCategories } from "../../services/filters";
+import {
+  orderAz,
+  getCategories,
+  filterByCategory,
+} from "../../services/filters";
 
 type MoviesActionType =
   | { type: "[Movie] Add-Categories"; payload: IMovie[] }
   | { type: "[Movie] Add-Movies"; payload: IMovie[] }
   | { type: "[Movie] Add-selected"; payload: IMovie }
   | { type: "[Movie] Delete-selected-movie"; payload: IMovie }
-  | { type: "[Movie] Delete-all-selected"; payload };
+  | { type: "[Movie] Delete-all-selected"; payload }
+  | { type: "[Movie] Add-Search-Movie"; payload };
 
 export const moviesReducer = (
   state: IMoviesState,
@@ -42,6 +47,13 @@ export const moviesReducer = (
       return {
         ...state,
         selectedMovies: [],
+      };
+    case "[Movie] Add-Search-Movie":
+      console.log("entra dispatch", action.payload);
+
+      return {
+        ...state,
+        searchingMovie: action.payload,
       };
 
     default:

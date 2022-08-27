@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { MoviesContext } from "../../../../context/movies/MoviesContext";
-import { IMovie } from "../../../../interfaces/movies";
 
 export default function MovieCard({ movie }) {
   const [isVoted, setIsVoted] = useState(false);

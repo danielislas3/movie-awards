@@ -9,4 +9,5 @@ export interface IMoviesState {
   movies: IMovie[];
   categories: string[];
   selectedMovies: IMovie[];
+  searchingMovie: string;
 }

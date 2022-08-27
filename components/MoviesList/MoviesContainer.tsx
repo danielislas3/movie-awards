@@ -4,12 +4,22 @@ import { IMovie } from "../../interfaces/movies";
 import CategoryContainer from "./MoviesContainer/CategoriyContainer";
 import { v1 as uuidv1 } from "uuid";
 import SubmintBtn from "./SubmintBtn";
+import MovieCard from "./MoviesContainer/MoviesCard/MovieCard";
 
 export const MoviesContainer = () => {
-  const { movies, categories, selectedMovies, deleteMoviesVoted } =
-    useContext(MoviesContext);
+  const {
+    movies,
+    categories,
+    selectedMovies,
+    deleteMoviesVoted,
+    searchingMovie,
+  } = useContext(MoviesContext);
+
   const [orderedMovies, setOrderedMovies] = useState<IMovie[][] | undefined>();
   const [isReady, setIsredy] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  const [searchedMovie, setSearchedMovie] = useState<IMovie>();
+
   useEffect(() => {
     const ordered = categories.map((category) =>
       movies.filter((movie) => movie.category === category)
@@ -23,11 +33,28 @@ export const MoviesContainer = () => {
     );
   }, [selectedMovies]);
 
+  useEffect(() => {
+    if (searchingMovie == "") {
+      setIsSearching(false);
+      return;
+    }
+
+    let newMov = movies.find((movie) => movie.title == searchingMovie);
+    setSearchedMovie(newMov);
+    newMov != undefined && setIsSearching(true);
+    console.log(newMov);
+  }, [searchingMovie]);
+
   return (
     <div>
-      {orderedMovies?.map((category) => (
-        <CategoryContainer key={uuidv1()} movies={category} />
-      ))}
+      {isSearching ? (
+        <MovieCard movie={searchedMovie} />
+      ) : (
+        orderedMovies?.map((category) => (
+          <CategoryContainer key={uuidv1()} movies={category} />
+        ))
+      )}
+
       {isReady && (
         <SubmintBtn
           selectedMovies={selectedMovies}

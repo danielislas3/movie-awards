@@ -4,7 +4,10 @@ export const getCategories = (movies: IMovie[]) => {
   const categories = movies.map((movie) => movie.category);
   return [...new Set(categories)];
 };
-export const filterByCategory = (movies: IMovie[], category: string) => {
+export const filterByCategory = (
+  movies: IMovie[],
+  category: string | undefined
+) => {
   return movies.filter((movie) => movie.category === category);
 };
 
