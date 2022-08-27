@@ -49,8 +49,6 @@ export const moviesReducer = (
         selectedMovies: [],
       };
     case "[Movie] Add-Search-Movie":
-      console.log("entra dispatch", action.payload);
-
       return {
         ...state,
         searchingMovie: action.payload,

@@ -41,7 +41,13 @@ export const MoviesContainer = () => {
 
     let newMov = movies.find((movie) => movie.title == searchingMovie);
     setSearchedMovie(newMov);
-    newMov != undefined && setIsSearching(true);
+
+    if (newMov == undefined) {
+      setIsSearching(false);
+      return;
+    }
+    setIsSearching(true);
+
     console.log(newMov);
   }, [searchingMovie]);
 
