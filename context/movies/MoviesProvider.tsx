@@ -19,6 +19,10 @@ export const MoviesProvider: FC = ({ children }) => {
   const setUpMovies = async () => {
     const response = await movieService.getAllMovies();
     const { movies } = await response;
+    console.log(response);
+    if (!movies) {
+      return;
+    }
 
     dispatch({
       type: "[Movie] Add-Categories",
